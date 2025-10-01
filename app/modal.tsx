@@ -1,9 +1,10 @@
 import { Link } from 'expo-router';
-import { Text, View } from 'react-native';
+import { Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function ModalScreen() {
   return (
-    <View className="flex-1 items-center justify-center bg-purple-50 p-5">
+    <SafeAreaView className="flex-1 items-center justify-center bg-purple-50 p-5">
       <Text className="text-2xl font-bold text-purple-600 mb-4">
         Modal Sayfası
       </Text>
@@ -15,6 +16,6 @@ export default function ModalScreen() {
           Ana sayfaya dön
         </Text>
       </Link>
-    </View>
+    </SafeAreaView>
   );
 }
