@@ -47,52 +47,17 @@ export default function SettingsScreen() {
           <Text className="text-2xl font-bold text-gray-800">Ayarlar</Text>
         </View>
 
-        {/* User Info Card */}
-        <View className="bg-white rounded-lg p-6 shadow-sm mb-6">
-          <View className="flex-row items-center mb-4">
-            <View className="w-16 h-16 bg-blue-100 rounded-full items-center justify-center mr-4">
-              <IconSymbol size={32} name="person.fill" color="#3B82F6" />
-            </View>
-            <View className="flex-1">
-              <Text className="text-xl font-bold text-gray-800">
-                {user?.firstName} {user?.lastName}
-              </Text>
-              <Text className="text-gray-600">@{user?.username}</Text>
-            </View>
-          </View>
-        </View>
+       
 
         {/* Settings Options */}
         <View className="bg-white rounded-lg shadow-sm mb-6">
           <TouchableOpacity className="flex-row items-center p-4 border-b border-gray-200">
             <IconSymbol size={24} name="person.circle" color="#3B82F6" />
-            <Text className="text-gray-800 font-semibold ml-4 flex-1">Profil Bilgileri</Text>
+            <Text className="text-gray-800 font-semibold ml-4 flex-1">Dil</Text>
             <IconSymbol size={20} name="chevron.right" color="#9CA3AF" />
           </TouchableOpacity>
           
-          <TouchableOpacity className="flex-row items-center p-4 border-b border-gray-200">
-            <IconSymbol size={24} name="bell" color="#3B82F6" />
-            <Text className="text-gray-800 font-semibold ml-4 flex-1">Bildirimler</Text>
-            <IconSymbol size={20} name="chevron.right" color="#9CA3AF" />
-          </TouchableOpacity>
-          
-          <TouchableOpacity className="flex-row items-center p-4 border-b border-gray-200">
-            <IconSymbol size={24} name="lock" color="#3B82F6" />
-            <Text className="text-gray-800 font-semibold ml-4 flex-1">Güvenlik</Text>
-            <IconSymbol size={20} name="chevron.right" color="#9CA3AF" />
-          </TouchableOpacity>
-          
-          <TouchableOpacity className="flex-row items-center p-4 border-b border-gray-200">
-            <IconSymbol size={24} name="moon" color="#3B82F6" />
-            <Text className="text-gray-800 font-semibold ml-4 flex-1">Tema</Text>
-            <IconSymbol size={20} name="chevron.right" color="#9CA3AF" />
-          </TouchableOpacity>
-          
-          <TouchableOpacity className="flex-row items-center p-4">
-            <IconSymbol size={24} name="questionmark.circle" color="#3B82F6" />
-            <Text className="text-gray-800 font-semibold ml-4 flex-1">Yardım</Text>
-            <IconSymbol size={20} name="chevron.right" color="#9CA3AF" />
-          </TouchableOpacity>
+      
         </View>
 
         {/* App Info */}
