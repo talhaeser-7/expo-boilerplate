@@ -16,11 +16,11 @@ export default function AuthGuard({ children }: AuthGuardProps) {
   }, [user, isLoading]);
 
   if (isLoading) {
-    return null; // Loading state handled by parent
+    return null;
   }
 
   if (!user) {
-    return null; // Will redirect to login
+    return null;
   }
 
   return <>{children}</>;

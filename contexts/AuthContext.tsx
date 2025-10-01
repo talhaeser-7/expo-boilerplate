@@ -60,7 +60,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         body: JSON.stringify({
           username,
           password,
-          expiresInMins: 30, // Token 30 dakika geçerli
+          expiresInMins: 30,
         }),
       });
 

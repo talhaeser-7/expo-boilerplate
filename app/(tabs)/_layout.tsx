@@ -1,42 +1,35 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
 import AuthGuard from '../../components/AuthGuard';
+import CustomTabBar from '../../components/CustomTabBar';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
 
   return (
     <AuthGuard>
       <Tabs
+      
+        tabBar={(props) => <CustomTabBar {...props} />}
         screenOptions={{
-          tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
           headerShown: false,
-          tabBarButton: HapticTab,
         }}>
         <Tabs.Screen
           name="index"
           options={{
-            title: 'Home',
-            tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+            title: 'Ana Sayfa',
           }}
         />
         <Tabs.Screen
           name="explore"
           options={{
-            title: 'Explore',
-            tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+            title: 'Keşfet',
           }}
         />
         <Tabs.Screen
           name="profile"
           options={{
             title: 'Profil',
-            tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.fill" color={color} />,
           }}
         />
       </Tabs>

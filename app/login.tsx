@@ -52,7 +52,7 @@ export default function LoginScreen() {
               value={password}
               onChangeText={setPassword}
               placeholder="Şifrenizi girin"
-            //   secureTextEntry
+              secureTextEntry
               autoCapitalize="none"
               autoCorrect={false}
               autoComplete="password"
