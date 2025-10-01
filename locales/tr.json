@@ -1,0 +1,83 @@
+{
+  "common": {
+    "loading": "Yükleniyor...",
+    "error": "Hata",
+    "success": "Başarılı",
+    "cancel": "İptal",
+    "save": "Kaydet",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "add": "Ekle",
+    "search": "Ara",
+    "back": "Geri"
+  },
+  "auth": {
+    "login": "Giriş Yap",
+    "logout": "Çıkış Yap",
+    "username": "Kullanıcı Adı",
+    "password": "Şifre",
+    "loginPlaceholder": "Kullanıcı adınızı girin",
+    "passwordPlaceholder": "Şifrenizi girin",
+    "loginButton": "Giriş Yap",
+    "logoutConfirm": "Hesabınızdan çıkmak istediğinizden emin misiniz?",
+    "loginError": "Giriş başarısız. Lütfen test kullanıcı bilgilerini kullanın.",
+    "testCredentials": "Test için kullanın:",
+    "testUser": "Kullanıcı: emilys",
+    "testPassword": "Şifre: emilyspass",
+    "fillRequiredFields": "Kullanıcı adı ve şifre gereklidir"
+  },
+  "navigation": {
+    "home": "Ana Sayfa",
+    "explore": "Keşfet",
+    "profile": "Profil",
+    "settings": "Ayarlar"
+  },
+  "home": {
+    "welcome": "Hoş Geldin",
+    "products": "Ürünler",
+    "loadingProducts": "Ürünler yükleniyor...",
+    "noProducts": "Ürün bulunamadı",
+    "deleteConfirm": "Bu ürünü silmek istediğinizden emin misiniz?",
+    "deleteSuccess": "Ürün başarıyla silindi",
+    "deleteError": "Ürün silinirken bir hata oluştu"
+  },
+  "explore": {
+    "searchProducts": "Ürün Ara",
+    "searchPlaceholder": "Ürün adı yazın...",
+    "addProduct": "Yeni Ürün Ekle",
+    "productName": "Ürün Adı",
+    "productNamePlaceholder": "Ürün adını girin",
+    "description": "Açıklama",
+    "descriptionPlaceholder": "Ürün açıklamasını girin",
+    "price": "Fiyat",
+    "pricePlaceholder": "0.00",
+    "brand": "Marka",
+    "brandPlaceholder": "Marka adını girin",
+    "category": "Kategori",
+    "categoryPlaceholder": "Kategori adını girin",
+    "addButton": "Ürün Ekle",
+    "adding": "Ekleniyor...",
+    "addSuccess": "Ürün başarıyla eklendi",
+    "addError": "Ürün eklenirken bir hata oluştu",
+    "fillAllFields": "Lütfen tüm alanları doldurun"
+  },
+  "profile": {
+    "profile": "Profil",
+    "email": "E-posta",
+    "username": "Kullanıcı Adı",
+    "fullName": "Ad Soyad",
+    "userId": "Kullanıcı ID"
+  },
+  "settings": {
+    "settings": "Ayarlar",
+    "language": "Dil",
+    "appInfo": "Uygulama Bilgileri",
+    "version": "Versiyon",
+    "build": "Build",
+    "platform": "Platform"
+  },
+  "languages": {
+    "turkish": "Türkçe",
+    "english": "English"
+  }
+}

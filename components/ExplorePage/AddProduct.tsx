@@ -1,7 +1,9 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
-import { ActivityIndicator, Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Alert, TextInput, TouchableOpacity, View } from 'react-native';
+import { useLanguage } from '../../contexts/LanguageContext';
 import { useCreateProduct } from '../../hooks/useProducts';
+import CustomText from '../ui/CustomText';
 
 export default function AddProduct() {
   const [newProduct, setNewProduct] = useState({
@@ -14,10 +16,11 @@ export default function AddProduct() {
 
   const queryClient = useQueryClient();
   const createProduct = useCreateProduct();
+  const { t } = useLanguage();
 
   const handleCreateProduct = () => {
     if (!newProduct.title || !newProduct.description || !newProduct.price) {
-      Alert.alert('Hata', 'Lütfen tüm alanları doldurun');
+      Alert.alert(t('common.error'), t('explore.fillAllFields'));
       return;
     }
 
@@ -36,7 +39,7 @@ export default function AddProduct() {
     
     createProduct.mutate(payload, {
       onSuccess: () => {
-        Alert.alert('Başarılı', 'Ürün başarıyla eklendi');
+        Alert.alert(t('common.success'), t('explore.addSuccess'));
         setNewProduct({
           title: '',
           description: '',
@@ -47,33 +50,37 @@ export default function AddProduct() {
         queryClient.invalidateQueries({ queryKey: ['products'] });
       },
       onError: () => {
-        Alert.alert('Hata', 'Ürün eklenirken bir hata oluştu');
+        Alert.alert(t('common.error'), t('explore.addError'));
       },
     });
   };
 
   return (
     <View className="bg-white rounded-lg p-4 shadow-sm">
-      <Text className="text-xl font-bold text-gray-800 mb-4">
-        Yeni Ürün Ekle
-      </Text>
+      <CustomText variant="title2" color="#1F2937" style={{ marginBottom: 16 }}>
+        {t('explore.addProduct')}
+      </CustomText>
       
       <View className="space-y-4">
         <View>
-          <Text className="text-sm font-medium text-gray-700 mb-2">Ürün Adı *</Text>
+          <CustomText variant="subtitle2" color="#374151" style={{ marginBottom: 8 }}>
+            {t('explore.productName')} *
+          </CustomText>
           <TextInput
             className="border border-gray-300 rounded-lg px-4 py-3 bg-white focus:border-blue-500"
-            placeholder="Ürün adını girin"
+            placeholder={t('explore.productNamePlaceholder')}
             value={newProduct.title}
             onChangeText={(text) => setNewProduct({...newProduct, title: text})}
           />
         </View>
         
         <View>
-          <Text className="text-sm font-medium text-gray-700 mb-2">Açıklama *</Text>
+          <CustomText variant="subtitle2" color="#374151" style={{ marginBottom: 8 }}>
+            {t('explore.description')} *
+          </CustomText>
           <TextInput
             className="border border-gray-300 rounded-lg px-4 py-3 bg-white focus:border-blue-500"
-            placeholder="Ürün açıklamasını girin"
+            placeholder={t('explore.descriptionPlaceholder')}
             value={newProduct.description}
             onChangeText={(text) => setNewProduct({...newProduct, description: text})}
             multiline
@@ -82,10 +89,12 @@ export default function AddProduct() {
         </View>
         
         <View>
-          <Text className="text-sm font-medium text-gray-700 mb-2">Fiyat *</Text>
+          <CustomText variant="subtitle2" color="#374151" style={{ marginBottom: 8 }}>
+            {t('explore.price')} *
+          </CustomText>
           <TextInput
             className="border border-gray-300 rounded-lg px-4 py-3 bg-white focus:border-blue-500"
-            placeholder="0.00"
+            placeholder={t('explore.pricePlaceholder')}
             value={newProduct.price}
             onChangeText={(text) => setNewProduct({...newProduct, price: text})}
             keyboardType="numeric"
@@ -93,20 +102,24 @@ export default function AddProduct() {
         </View>
         
         <View>
-          <Text className="text-sm font-medium text-gray-700 mb-2">Marka</Text>
+          <CustomText variant="subtitle2" color="#374151" style={{ marginBottom: 8 }}>
+            {t('explore.brand')}
+          </CustomText>
           <TextInput
             className="border border-gray-300 rounded-lg px-4 py-3 bg-white focus:border-blue-500"
-            placeholder="Marka adını girin"
+            placeholder={t('explore.brandPlaceholder')}
             value={newProduct.brand}
             onChangeText={(text) => setNewProduct({...newProduct, brand: text})}
           />
         </View>
         
         <View className="mb-4">
-          <Text className="text-sm font-medium text-gray-700 mb-2">Kategori</Text>
+          <CustomText variant="subtitle2" color="#374151" style={{ marginBottom: 8 }}>
+            {t('explore.category')}
+          </CustomText>
           <TextInput
             className="border border-gray-300 rounded-lg px-4 py-3 bg-white focus:border-blue-500"
-            placeholder="Kategori adını girin"
+            placeholder={t('explore.categoryPlaceholder')}
             value={newProduct.category}
             onChangeText={(text) => setNewProduct({...newProduct, category: text})}
           />
@@ -115,8 +128,8 @@ export default function AddProduct() {
         <TouchableOpacity
           className={`rounded-lg py-3 ${
             createProduct.isPending 
-              ? 'bg-green-400 opacity-70' 
-              : 'bg-green-600'
+              ? 'bg-primary-secondary opacity-70' 
+              : 'bg-primary-secondary'
           }`}
           onPress={handleCreateProduct}
           disabled={createProduct.isPending}
@@ -124,14 +137,14 @@ export default function AddProduct() {
           {createProduct.isPending ? (
             <View className="flex-row items-center justify-center">
               <ActivityIndicator color="white" size="small" />
-              <Text className="text-white text-center font-semibold ml-2">
-                Ekleniyor...
-              </Text>
+              <CustomText variant="body2" color="white" style={{ marginLeft: 8 }}>
+                {t('explore.adding')}
+              </CustomText>
             </View>
           ) : (
-            <Text className="text-white text-center font-semibold">
-              Ürün Ekle
-            </Text>
+            <CustomText variant="body2" color="white" align="center">
+              {t('explore.addButton')}
+            </CustomText>
           )}
         </TouchableOpacity>
       </View>

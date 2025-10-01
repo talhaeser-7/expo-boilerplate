@@ -1,41 +1,101 @@
-# Welcome to your Expo app 👋
+# 🚀 Expo React Native Boilerplate
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Modern React Native boilerplate with Expo, TypeScript, and best practices.
 
-## Get started
+## ✨ Features
 
-1. Install dependencies
+- **🎨 UI/UX**: NativeWind (Tailwind), Custom Typography, Light Theme
+- **🌍 i18n**: Turkish & English support with i18n-js
+- **🔐 Auth**: Context API, Secure Storage, Auto Login
+- **📱 Navigation**: Expo Router, Custom Tab Bar
+- **🔄 State**: React Query, Optimistic Updates, Cache Management
+- **🌐 API**: DummyJSON integration, Full CRUD operations
 
-   ```bash
-   npm install
-   ```
+## 🛠️ Tech Stack
 
-2. Start the app
+- **React Native** + **Expo**
+- **TypeScript** + **NativeWind (Tailwind)**
+- **Expo Router** + **React Query**
+- **i18n-js** + **AsyncStorage**
 
-   ```bash
-   npx expo start
-   ```
+## 🚀 Quick Start
 
-In the output, you'll find options to open the app in a
+```bash
+# Install dependencies
+npm install
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+# Start the app
+npx expo start
+```
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 📱 App Features
 
+- **Home**: User profile, product list (DummyJSON), delete products
+- **Explore**: Product search, add new products, form validation
+- **Profile**: User info, profile photo, settings access
+- **Settings**: Language switching (TR/EN), app info, logout
 
-## Learn more
+## 🎨 Design System
 
-To learn more about developing your project with Expo, look at the following resources:
+### Colors
+```typescript
+primaryBackground: "#F8FAFC"  // Light gray background
+mainColor: "#3B82F6"          // Blue primary
+secondaryColor: "#10B981"     // Green success
+dangerColor: "#EF4444"        // Red danger
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### Typography
+- **title1**: 28px, Bold
+- **body2**: 16px, Medium
+- **caption**: 12px, Regular
 
-## Join the community
+## 🌍 i18n Usage
 
-Join our community of developers creating universal apps.
+```typescript
+const { t, changeLanguage } = useLanguage();
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+// Change language
+changeLanguage('en'); // English
+changeLanguage('tr'); // Turkish
+
+// Use translations
+<Text>{t('common.loading')}</Text>
+```
+
+## 📊 API Integration
+
+Uses **DummyJSON** for test data:
+
+## 🔧 Project Structure
+
+```
+├── app/                    # Pages (Expo Router)
+├── components/             # Reusable components
+│   ├── HomePage/          # Home components
+│   ├── ExplorePage/       # Explore components
+│   ├── ProfilePage/       # Profile components
+│   └── ui/                # UI components
+├── contexts/              # React Contexts
+├── hooks/                 # Custom hooks
+├── services/              # API services
+├── types/                 # TypeScript types
+├── utils/                 # Utilities
+└── locales/               # Translation files
+```
+
+## 🚀 Production Ready
+
+- ✅ TypeScript support
+- ✅ ESLint configuration
+- ✅ Error boundaries
+- ✅ Loading states
+- ✅ Offline handling
+
+## 📄 License
+
+MIT License
+
+---
+
+**⭐ Star this repo if you like it!**

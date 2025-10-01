@@ -1,9 +1,12 @@
 import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Image, Text, View } from 'react-native';
+import { Image, View } from 'react-native';
 import { useAuth } from '../../contexts/AuthContext';
+import { useLanguage } from '../../contexts/LanguageContext';
+import CustomText from '../ui/CustomText';
 
 export default function Hero() {
   const { user } = useAuth();
+  const { t } = useLanguage();
 
   return (
     <View className="bg-white rounded-lg p-6 shadow-sm mb-6">
@@ -18,32 +21,40 @@ export default function Hero() {
             <IconSymbol size={40} name="person.fill" color="#3B82F6" />
           )}
         </View>
-        <Text className="text-2xl font-bold text-gray-800">
+        <CustomText variant="title1" color="#1F2937">
           {user?.firstName} {user?.lastName}
-        </Text>
-        <Text className="text-gray-600 text-lg">@{user?.username}</Text>
+        </CustomText>
+        <CustomText variant="body2" color="#6B7280">@{user?.username}</CustomText>
       </View>
 
       {/* User Info */}
       <View className="space-y-4">
         <View className="border-b border-gray-200 pb-4">
-          <Text className="text-gray-500 text-sm mb-1">E-posta</Text>
-          <Text className="text-gray-800 text-lg">{user?.email}</Text>
+          <CustomText variant="subtitle1" color="#6B7280" style={{ marginBottom: 4 }}>
+            {t('profile.email')}
+          </CustomText>
+          <CustomText variant="body2" color="#1F2937">{user?.email}</CustomText>
         </View>
         
         <View className="border-b border-gray-200 pb-4">
-          <Text className="text-gray-500 text-sm mb-1">Kullanıcı Adı</Text>
-          <Text className="text-gray-800 text-lg">{user?.username}</Text>
+          <CustomText variant="subtitle1" color="#6B7280" style={{ marginBottom: 4 }}>
+            {t('profile.username')}
+          </CustomText>
+          <CustomText variant="body2" color="#1F2937">{user?.username}</CustomText>
         </View>
         
         <View className="border-b border-gray-200 pb-4">
-          <Text className="text-gray-500 text-sm mb-1">Ad Soyad</Text>
-          <Text className="text-gray-800 text-lg">{user?.firstName} {user?.lastName}</Text>
+          <CustomText variant="subtitle1" color="#6B7280" style={{ marginBottom: 4 }}>
+            {t('profile.fullName')}
+          </CustomText>
+          <CustomText variant="body2" color="#1F2937">{user?.firstName} {user?.lastName}</CustomText>
         </View>
         
         <View className="pb-4">
-          <Text className="text-gray-500 text-sm mb-1">Kullanıcı ID</Text>
-          <Text className="text-gray-800 text-lg">#{user?.id}</Text>
+          <CustomText variant="subtitle1" color="#6B7280" style={{ marginBottom: 4 }}>
+            {t('profile.userId')}
+          </CustomText>
+          <CustomText variant="body2" color="#1F2937">#{user?.id}</CustomText>
         </View>
       </View>
     </View>

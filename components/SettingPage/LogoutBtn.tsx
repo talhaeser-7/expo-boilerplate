@@ -1,22 +1,25 @@
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { router } from 'expo-router';
-import { Alert, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, TouchableOpacity, View } from 'react-native';
 import { useAuth } from '../../contexts/AuthContext';
+import { useLanguage } from '../../contexts/LanguageContext';
+import CustomText from '../ui/CustomText';
 
 export default function LogoutBtn() {
   const { logout } = useAuth();
+  const { t } = useLanguage();
 
   const handleLogout = () => {
     Alert.alert(
-      'Çıkış Yap',
-      'Hesabınızdan çıkmak istediğinizden emin misiniz?',
+      t('auth.logout'),
+      t('auth.logoutConfirm'),
       [
         {
-          text: 'İptal',
+          text: t('common.cancel'),
           style: 'cancel',
         },
         {
-          text: 'Çıkış Yap',
+          text: t('auth.logout'),
           style: 'destructive',
           onPress: () => {
             logout();
@@ -29,12 +32,14 @@ export default function LogoutBtn() {
 
   return (
     <TouchableOpacity
-      className="bg-red-500 rounded-lg py-4"
+      className="bg-primary-danger rounded-lg py-4"
       onPress={handleLogout}
     >
       <View className="flex-row items-center justify-center">
         <IconSymbol size={24} name="arrow.right.square" color="white" />
-        <Text className="text-white font-bold text-lg ml-2">Çıkış Yap</Text>
+        <CustomText variant="body2" color="white" style={{ marginLeft: 8 }}>
+          {t('auth.logout')}
+        </CustomText>
       </View>
     </TouchableOpacity>
   );

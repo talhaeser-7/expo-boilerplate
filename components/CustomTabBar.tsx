@@ -1,7 +1,9 @@
 import { router } from 'expo-router';
 import React, { useEffect, useRef } from 'react';
-import { Animated, Text, TouchableOpacity, View } from 'react-native';
+import { Animated, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useLanguage } from '../contexts/LanguageContext';
+import CustomText from './ui/CustomText';
 import { IconSymbol } from './ui/icon-symbol';
 
 interface TabItem {
@@ -17,22 +19,22 @@ interface CustomTabBarProps {
   navigation: any;
 }
 
-const tabs: TabItem[] = [
+const getTabs = (t: (key: string) => string): TabItem[] => [
   {
     name: 'index',
-    title: 'Ana Sayfa',
+    title: t('navigation.home'),
     icon: 'house.fill',
     route: '/(tabs)/',
   },
   {
     name: 'explore',
-    title: 'Keşfet',
+    title: t('navigation.explore'),
     icon: 'paperplane.fill',
     route: '/(tabs)/explore',
   },
   {
     name: 'profile',
-    title: 'Profil',
+    title: t('navigation.profile'),
     icon: 'person.fill',
     route: '/(tabs)/profile',
   },
@@ -40,8 +42,9 @@ const tabs: TabItem[] = [
 
 export default function CustomTabBar({ state, descriptors, navigation }: CustomTabBarProps) {
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
+  const tabs = getTabs(t);
   
-  // Animasyon değerleri
   const scaleAnimations = useRef(
     state.routes.map(() => new Animated.Value(1))
   ).current;
@@ -150,17 +153,15 @@ export default function CustomTabBar({ state, descriptors, navigation }: CustomT
                       color={isFocused ? '#FFFFFF' : '#8E8E93'}
                     />
                   </View>
-                  <Text
+                  <CustomText 
+                    variant="caption" 
+                    color={isFocused ? '#007AFF' : '#8E8E93'}
                     style={{
-                      color: isFocused ? '#007AFF' : '#8E8E93',
-                      fontSize: 10,
-                      fontWeight: isFocused ? '600' : '400',
-                      textAlign: 'center',
                       opacity: isFocused ? 1 : 0.5,
                     }}
                   >
                     {tab?.title}
-                  </Text>
+                  </CustomText>
                 </View>
               </TouchableOpacity>
             </Animated.View>
