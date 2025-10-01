@@ -1,5 +1,5 @@
+import { Product, ProductsResponse } from '../types/product';
 import apiService from './ApiService';
-import { Product, ProductsResponse } from './api';
 
 
 export async function fetchProducts(limit = 10, skip = 0): Promise<ProductsResponse> {

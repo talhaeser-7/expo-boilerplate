@@ -102,7 +102,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       await AsyncStorage.removeItem('user');
       setUser(null);
-      // ApiService'den token'ı temizle
       apiService.clearToken();
     } catch (error) {
       console.error('Logout error:', error);
