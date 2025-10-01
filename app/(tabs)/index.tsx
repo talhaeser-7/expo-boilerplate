@@ -23,7 +23,16 @@ export default function HomeScreen() {
         {
           text: 'Sil',
           style: 'destructive',
-          onPress: () => deleteProduct.mutate(id),
+          onPress: () => {
+            deleteProduct.mutate(id, {
+              onSuccess: () => {
+                Alert.alert('Başarılı', 'Ürün başarıyla silindi!');
+              },
+              onError: (error) => {
+                Alert.alert('Hata', `Ürün silinirken hata oluştu: ${error.message}`);
+              }
+            });
+          },
         },
       ]
     );
@@ -68,10 +77,13 @@ export default function HomeScreen() {
                   <View className="flex-row justify-between items-center">
                     <Text className="text-green-600 font-bold">${product.price}</Text>
                     <TouchableOpacity
-                      className="bg-red-500 rounded px-3 py-1"
+                      className={`rounded px-3 py-1 ${deleteProduct.isPending ? 'bg-gray-400' : 'bg-red-500'}`}
                       onPress={() => handleDeleteProduct(product.id)}
+                      disabled={deleteProduct.isPending}
                     >
-                      <Text className="text-white text-xs">Sil</Text>
+                      <Text className="text-white text-xs">
+                        {deleteProduct.isPending ? 'Siliniyor...' : 'Sil'}
+                      </Text>
                     </TouchableOpacity>
                   </View>
                 </View>

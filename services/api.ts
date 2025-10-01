@@ -1,4 +1,4 @@
-const BASE_URL = 'https://dummyjson.com';
+import apiService from './ApiService';
 
 export interface Product {
   id: number;
@@ -33,63 +33,56 @@ export interface User {
 // Products API
 export const productsApi = {
   getAll: async (limit = 10, skip = 0): Promise<ProductsResponse> => {
-    const response = await fetch(`${BASE_URL}/products?limit=${limit}&skip=${skip}`);
-    return response.json();
+    return apiService.get<ProductsResponse>({
+      url: `/products?limit=${limit}&skip=${skip}`,
+      withToken: false
+    });
   },
 
   getById: async (id: number): Promise<Product> => {
-    const response = await fetch(`${BASE_URL}/products/${id}`);
-    return response.json();
+    return apiService.get<Product>({
+      url: `/products/${id}`,
+      withToken: false
+    });
   },
 
   search: async (query: string): Promise<ProductsResponse> => {
-    const response = await fetch(`${BASE_URL}/products/search?q=${encodeURIComponent(query)}`);
-    return response.json();
+    return apiService.get<ProductsResponse>({
+      url: `/products/search?q=${encodeURIComponent(query)}`,
+      withToken: false
+    });
   },
 
-  create: async (product: Omit<Product, 'id'>, token: string): Promise<Product> => {
-    const response = await fetch(`${BASE_URL}/products/add`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-      body: JSON.stringify(product),
+  create: async (product: Omit<Product, 'id'>): Promise<Product> => {
+    return apiService.post<Product>({
+      url: '/products/add',
+      config: {
+        body: JSON.stringify(product)
+      }
     });
-    return response.json();
   },
 
-  update: async (id: number, product: Partial<Product>, token: string): Promise<Product> => {
-    const response = await fetch(`${BASE_URL}/products/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-      body: JSON.stringify(product),
+  update: async (id: number, product: Partial<Product>): Promise<Product> => {
+    return apiService.put<Product>({
+      url: `/products/${id}`,
+      config: {
+        body: JSON.stringify(product)
+      }
     });
-    return response.json();
   },
 
-  delete: async (id: number, token: string): Promise<{ id: number; isDeleted: boolean }> => {
-    const response = await fetch(`${BASE_URL}/products/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
+  delete: async (id: number): Promise<{ id: number; isDeleted: boolean }> => {
+    return apiService.delete<{ id: number; isDeleted: boolean }>({
+      url: `/products/${id}`
     });
-    return response.json();
   },
 };
 
 // User API
 export const userApi = {
-  getMe: async (token: string): Promise<User> => {
-    const response = await fetch(`${BASE_URL}/auth/me`, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
+  getMe: async (): Promise<User> => {
+    return apiService.get<User>({
+      url: '/auth/me'
     });
-    return response.json();
   },
 };

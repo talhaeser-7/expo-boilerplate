@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import apiService from '../services/ApiService';
 
 interface User {
   id: number;
@@ -40,7 +41,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const storedUser = await AsyncStorage.getItem('user');
       if (storedUser) {
-        setUser(JSON.parse(storedUser));
+        const userData = JSON.parse(storedUser);
+        setUser(userData);
+        // ApiService'e token'ı set et
+        apiService.setToken(userData.token);
       }
     } catch (error) {
       console.error('Error loading stored user:', error);
@@ -73,11 +77,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           firstName: data.firstName,
           lastName: data.lastName,
           image: data.image,
-          token: data.token,
+          token: data.accessToken, // DummyJSON returns accessToken, not token
         };
         
         setUser(userData);
         await AsyncStorage.setItem('user', JSON.stringify(userData));
+        // ApiService'e token'ı set et
+        apiService.setToken(userData.token);
         return true;
       } else {
         const errorData = await response.json();
@@ -96,6 +102,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       await AsyncStorage.removeItem('user');
       setUser(null);
+      // ApiService'den token'ı temizle
+      apiService.clearToken();
     } catch (error) {
       console.error('Logout error:', error);
     }
