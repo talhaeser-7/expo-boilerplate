@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import { Animated, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useLanguage } from '../contexts/LanguageContext';
+import { colors } from '../utils/color';
 import CustomText from './ui/CustomText';
 import { IconSymbol } from './ui/icon-symbol';
 
@@ -48,18 +49,30 @@ export default function CustomTabBar({ state, descriptors, navigation }: CustomT
   const scaleAnimations = useRef(
     state.routes.map(() => new Animated.Value(1))
   ).current;
+  
+  const opacityAnimations = useRef(
+    state.routes.map(() => new Animated.Value(0.6))
+  ).current;
 
   useEffect(() => {
-    // Aktif tab için sade animasyon
     state.routes.forEach((_: any, index: number) => {
       const isFocused = state.index === index;
-      Animated.timing(scaleAnimations[index], {
-        toValue: isFocused ? 1.05 : 1,
-        duration: 200,
-        useNativeDriver: true,
-      }).start();
+      
+      Animated.parallel([
+        Animated.spring(scaleAnimations[index], {
+          toValue: isFocused ? 1.1 : 1,
+          tension: 300,
+          friction: 10,
+          useNativeDriver: true,
+        }),
+        Animated.timing(opacityAnimations[index], {
+          toValue: isFocused ? 1 : 0.6,
+          duration: 250,
+          useNativeDriver: true,
+        })
+      ]).start();
     });
-  }, [state.index, scaleAnimations, state.routes]);
+  }, [state.index, scaleAnimations, opacityAnimations, state.routes]);
 
   return (
     <View 
@@ -69,29 +82,29 @@ export default function CustomTabBar({ state, descriptors, navigation }: CustomT
         left: 0,
         right: 0,
         paddingBottom: insets.bottom,
-        paddingHorizontal: 16,
-        paddingTop: 8,
+        paddingHorizontal: 20,
+        paddingTop: 12,
       }}
     >
       <View 
         style={{
-          backgroundColor: '#FFFFFF',
-          borderRadius: 20,
+          backgroundColor: colors.primaryBackground,
+          borderRadius: 28,
           flexDirection: 'row',
-          height: 60,
-          paddingHorizontal: 12,
+          height: 70,
+          paddingHorizontal: 16,
           alignItems: 'center',
           justifyContent: 'space-around',
-          shadowColor: '#000',
+          shadowColor: colors.mainColor,
           shadowOffset: {
             width: 0,
-            height: 2,
+            height: 8,
           },
-          shadowOpacity: 0.1,
-          shadowRadius: 8,
-          elevation: 8,
-          borderWidth: 0.5,
-          borderColor: '#E5E5E5',
+          shadowOpacity: 0.15,
+          shadowRadius: 20,
+          elevation: 12,
+          borderWidth: 1,
+          borderColor: `${colors.mainColor}20`,
         }}
       >
         {state.routes.map((route: any, index: number) => {
@@ -115,6 +128,7 @@ export default function CustomTabBar({ state, descriptors, navigation }: CustomT
               key={route.key}
               style={{
                 transform: [{ scale: scaleAnimations[index] }],
+                opacity: opacityAnimations[index],
               }}
             >
               <TouchableOpacity
@@ -126,38 +140,47 @@ export default function CustomTabBar({ state, descriptors, navigation }: CustomT
                 style={{
                   alignItems: 'center',
                   justifyContent: 'center',
-                  paddingVertical: 6,
-                  paddingHorizontal: 8,
-                  borderRadius: 12,
-                  backgroundColor: isFocused ? '#007AFF20' : 'transparent',
-                  minWidth: 60,
-                  marginHorizontal: 2,
+                  paddingVertical: 8,
+                  paddingHorizontal: 12,
+                  borderRadius: 20,
+                  backgroundColor: isFocused ? `${colors.mainColor}15` : 'transparent',
+                  minWidth: 70,
+                  marginHorizontal: 4,
                 }}
-                activeOpacity={0.7}
+                activeOpacity={0.8}
               >
                 <View style={{ alignItems: 'center' }}>
-                  <View
+                  <Animated.View
                     style={{
-                      width: 28,
-                      height: 28,
-                      borderRadius: 14,
-                      backgroundColor: isFocused ? '#007AFF' : 'transparent',
+                      width: 32,
+                      height: 32,
+                      borderRadius: 16,
+                      backgroundColor: isFocused ? colors.mainColor : 'transparent',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      marginBottom: 2,
+                      marginBottom: 4,
+                      shadowColor: isFocused ? colors.mainColor : 'transparent',
+                      shadowOffset: {
+                        width: 0,
+                        height: 4,
+                      },
+                      shadowOpacity: 0.3,
+                      shadowRadius: 8,
+                      elevation: isFocused ? 6 : 0,
                     }}
                   >
                     <IconSymbol
-                      size={18}
+                      size={20}
                       name={tab?.icon as any || 'circle'}
-                      color={isFocused ? '#FFFFFF' : '#8E8E93'}
+                      color={isFocused ? '#FFFFFF' : colors.mainColor}
                     />
-                  </View>
+                  </Animated.View>
                   <CustomText 
                     variant="caption" 
-                    color={isFocused ? '#007AFF' : '#8E8E93'}
+                    color={isFocused ? colors.mainColor : '#6B7280'}
                     style={{
-                      opacity: isFocused ? 1 : 0.5,
+                      fontWeight: isFocused ? '600' : '400',
+                      fontSize: 11,
                     }}
                   >
                     {tab?.title}

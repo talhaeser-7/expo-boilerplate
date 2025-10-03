@@ -43,7 +43,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (storedUser) {
         const userData = JSON.parse(storedUser);
         setUser(userData);
-        // ApiService'e token'ı set et
         apiService.setToken(userData.token);
       }
     } catch (error) {
@@ -82,7 +81,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         
         setUser(userData);
         await AsyncStorage.setItem('user', JSON.stringify(userData));
-        // ApiService'e token'ı set et
         apiService.setToken(userData.token);
         return true;
       } else {
